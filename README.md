@@ -8,7 +8,7 @@ Sun Asterisk Coding Exam by Michael Steven N. David
 - Virtual Env (Guide for Virtual Envs https://docs.djangoproject.com/en/3.1/howto/windows/)
 - Git
 
-#For Development
+# For Development
 
 **If all requirements are made, follow the instructions below to have a fresh copy of the project**
 1. Clone the project's repository to your desired folder location 
