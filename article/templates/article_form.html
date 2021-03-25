@@ -1,0 +1,26 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h1>
+      {% if method == "POST" %}
+        Create Article
+      {% else %}
+        Update Article
+      {% endif %}
+    </h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button class="btn btn-primary mt-4 btn-lg" type="submit">
+        {% if method == "POST" %}
+          Post
+        {% else %}
+          Update
+        {% endif %}
+      </button>
+      <a class="btn btn-secondary btn-lg mt-4 mx-2" href="{% url 'article_home' %}"> Go Back</a>
+    </form>
+  </div>
+{% endblock content %}

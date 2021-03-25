@@ -1,0 +1,75 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+  <div class="container mt-5">
+    {% if messages %}
+      {% for message in messages %}
+        <div {% if message.tags %}
+          class="alert alert-{% if message.tags %}success{% else %}danger{% endif %}" {% endif %}>
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    <div class="d-flex justify-content-between">
+      <h1>Article Detail</h1>
+      <div class="d-flex">
+        <a class="btn btn-primary btn-lg mx-2" href="{{ article.get_absolute_url }}/update"> Update Article</a>
+        <a class="btn btn-danger btn-lg mx-2" href="{{ article.get_absolute_url }}/delete"> Delete Article</a>
+      </div>
+    </div>
+    <div class="mt-5">
+      <h3 class="font-weight-bold">Title: {{ article }}</h3>
+      <div class="d-flex">
+        <p id="votes">Number of Votes: <b>{{ article.votes }}</b></p>
+        <a class="btn btn-success btn-sm mx-2 mb-2" id="upvote" href="#"> Upvote</a>
+        <a class="btn btn-danger btn-sm mx-2 mb-2" id="downvote" href="#"> Downvote</a>
+      </div>
+
+      <p class="text-muted">Created Date: {{ article.created_date }}</p>
+      <h4 class="mt-5">Description:</h4>
+      <p>{{ article.description }}</p>
+    </div>
+
+
+  </div>
+{% endblock content %}
+
+
+{% block extraJS %}
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script type="text/javascript">
+      const upvote = document.querySelector('#upvote'),
+          downvote = document.querySelector('#downvote');
+      const votes = document.querySelector("#votes");
+
+      upvote.addEventListener('click', (evt => {
+          evt.preventDefault();
+          vote_func("up");
+      }));
+
+      downvote.addEventListener('click', (evt => {
+          evt.preventDefault();
+          vote_func("down");
+      }));
+
+      const vote_func = async (indicator) => {
+          try {
+              const response = await axios.get("{% url 'article_vote' %}", {
+                  params: {
+                      id: {{ article.pk }},
+                      vote: indicator
+                  }
+              });
+              let text = "";
+              text += `Number of Votes: <b>` + response.data.votes + `</b>`;
+              votes.innerHTML = text
+          } catch (error) {
+              alert("There was an error occurred");
+              console.error(error);
+          }
+      }
+  </script>
+{% endblock extraJS %}
+

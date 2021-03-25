@@ -1,0 +1,41 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+  <div class="container">
+    {% if messages %}
+      {% for message in messages %}
+        <div {% if message.tags %}
+          class="alert alert-{% if message.tags %}success{% else %}danger{% endif %}" {% endif %}>
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    <div class="mt-5 d-flex justify-content-between">
+      <h1>Articles</h1>
+      <a href="{% url 'article_create' %}" class="btn btn-primary mt-3">Create Article</a>
+    </div>
+
+    <div class="row mt-5">
+      {% for article in articles %}
+        <div class="col-4 mb-4">
+          <div class="card">
+            <a href="{{ article.get_absolute_url }}">
+              <img src="https://via.placeholder.com/350" class="card-img-top img-fluid" alt="{{ article }}">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">{{ article }}</h5>
+              <p class="card-text">{{ article.description|truncatechars:100 }}</p>
+              <p class="text-muted">Date Created: {{ article.created_date }}</p>
+              <a href="{{ article.get_absolute_url }}" class="btn btn-primary">Read Article</a>
+            </div>
+            <div class="card-footer text-muted">
+              <a class="btn btn-info mx-2 text-white" href="{{ article.get_absolute_url }}/update"> Update Article</a>
+              <a class="btn btn-danger btn mx-2" href="{{ article.get_absolute_url }}/delete"> Delete Article</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock content %}
