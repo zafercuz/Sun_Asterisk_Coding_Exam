@@ -3,8 +3,8 @@ Sun Asterisk Coding Exam by Michael Steven N. David
 
 **In order to install a fresh copy of this, you should meet the requirements stated below**
 - Python _**3.7**_/_**3.8**_
-- PostGresSQL
-- A database on PostGresSQL named "sunAsterisk"
+- PostgreSQL
+- A database on PostgreSQL named "**sunAsterisk**"
 - Virtual Env (Guide for Virtual Envs https://docs.djangoproject.com/en/3.1/howto/windows/)
 - Git
 
@@ -32,17 +32,17 @@ Sun Asterisk Coding Exam by Michael Steven N. David
    ```
    Let's check the pip version and it must be the latest around v21.0.1
    ```
-   (venv) C:\Projects\sunAsterisk> pip --version
+   (venv) C:\Projects\sunAsterisk> python -m pip --version
    ```
    Make sure to check, if it's not updated then update pip with "pip install --force-reinstall pip"
    
    Let's install the packages now
    ```
-   (venv) C:\Projects\sunAsterisk> pip install -r requirements.txt
+   (venv) C:\Projects\sunAsterisk> python -m pip install -r requirements.txt
    ```
    
    If error occurred, then go back to step 3 and make sure everything's correct
-4. In **DATABASES** part in _settings.py_ change to whatever you have the User and Password of your PostGresSQL
+4. In **DATABASES** part in **_settings.py_** change to whatever you have the User and Password of your PostGresSQL
 5. Type in console `python manage.py migrate`
     
     If ever an error occurred, please refer back to the steps above and do it again
